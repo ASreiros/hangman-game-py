@@ -26,9 +26,9 @@ hint = ""
 for n in range(len(chosen_word)):
     hint += "_"
 
+previous_list = []
 
 while lives > 0 and victory is False:
-    print(chosen_word)
     print(hangman_art.stages[lives])
     print(hint)
 
@@ -36,12 +36,18 @@ while lives > 0 and victory is False:
 
     if len(guess) > 1:
         print(languages.messages[language][1])
-        lives -= 1
         continue
 
-    if chosen_word.count(guess) == 0:
+    elif guess in previous_list:
+        print(languages.messages[language][4])
+        print(previous_list)
+
+    elif chosen_word.count(guess) == 0:
+        previous_list.append(guess)
         lives -= 1
         continue
+    else:
+        previous_list.append(guess)
 
     for n in range(len(chosen_word)):
         if chosen_word[n] == guess:
