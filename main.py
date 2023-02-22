@@ -1,13 +1,23 @@
 import random
 import hangman_art
-
-word_list = ["aardvark", "baboon", "camel"]
+import hangman_words
+import languages
 
 print(hangman_art.logo)
 print("Welcome to the HANGMAN game\n")
 
-chosen_word = random.choice(word_list).lower()
+lang_check = False
+language = 4
 
+while lang_check is False:
+    language = input("Choose a language. 0 for English, 1 for Lithuanian, 2 for Russian\n")
+    if language == "0" or language == "1" or language == "2":
+        lang_check = True
+        language = int(language)
+
+
+
+chosen_word = random.choice(hangman_words.word_list[language]).lower()
 lives = 6
 victory = False
 
@@ -18,13 +28,14 @@ for n in range(len(chosen_word)):
 
 
 while lives > 0 and victory is False:
+    print(chosen_word)
     print(hangman_art.stages[lives])
     print(hint)
 
-    guess = input("Guess a letter\n").lower()
+    guess = input(languages.messages[language][0] + "\n").lower()
 
     if len(guess) > 1:
-        print("You can guess only 1 letter")
+        print(languages.messages[language][1])
         lives -= 1
         continue
 
@@ -40,9 +51,9 @@ while lives > 0 and victory is False:
 
     if chosen_word == hint:
         victory = True
-        print("Congratulations!!! You won!!!")
+        print(languages.messages[language][2])
 
 
 if lives == 0:
     print(hangman_art.stages[lives])
-    print("Game Over!!!You lost!!!")
+    print(languages.messages[language][3])
