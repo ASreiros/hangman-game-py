@@ -44,10 +44,12 @@ while lives > 0 and victory is False:
 
     elif chosen_word.count(guess) == 0:
         previous_list.append(guess)
+        print(languages.messages[language][5])
         lives -= 1
         continue
     else:
         previous_list.append(guess)
+        print(languages.messages[language][6])
 
     for n in range(len(chosen_word)):
         if chosen_word[n] == guess:
@@ -63,3 +65,4 @@ while lives > 0 and victory is False:
 if lives == 0:
     print(hangman_art.stages[lives])
     print(languages.messages[language][3])
+    print(chosen_word)
